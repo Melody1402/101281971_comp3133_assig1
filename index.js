@@ -1,13 +1,16 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const cors = require('cors');
 //import ApolloServer
 const { ApolloServer } = require('apollo-server-express')
+const dotenv = require('dotenv');
+dotenv.config();
 
-const TypeDefs = require('./schema.js')
+const TypeDefs = require('./schema')
 const Resolvers = require('./resolvers.js')
 
-const db = 'mongodb+srv://dbMelody:qazzaq1402@cluster0.jtt9c.mongodb.net/101281971_comp3133_assig1?retryWrites=true&w=majority'
+const db = 'mongodb+srv://dbMelody:qazzaq@cluster0.jtt9c.mongodb.net/101281971_comp3133_assig1?retryWrites=true&w=majority'
 const port = process.env.PORT || 4000
 
 // MongoDB Connection
@@ -23,8 +26,8 @@ connect.on('error', (err) => {
 
 // Define Apollo Server
 const server = new ApolloServer({
-    typeDefs: TypeDefs,
-    resolvers: Resolvers
+    typeDefs: TypeDefs.typeDefs,
+    resolvers: Resolvers.resolvers
 })
 
 const app = express()

@@ -2,7 +2,6 @@ const { gql } = require('apollo-server-express');
 
 exports.typeDefs = gql `
     scalar Date
-
     type User {
         id: ID!
         username: String!
@@ -12,7 +11,6 @@ exports.typeDefs = gql `
         email: String!
         type: String!
     }
-
     type Listing {
         id: ID!
         listing_id: String!
@@ -25,7 +23,6 @@ exports.typeDefs = gql `
         email: String!
         username: String!
     }
-
     type Booking {
         id: ID!
         listing_id: String!
@@ -35,25 +32,17 @@ exports.typeDefs = gql `
         booking_end: Date!
         username: String!
     }
-
     type Auth {
         secret: String
     }
-
     type Query {
-        searchListingByName(listing_title: String!) : [Listing]
-        searchListingByCity(city: String!) : [Listing]
-        searchListingByPostalCode(postal_code: String!) : [Listing]
-
         getListings: [Listing]
-
-        login(username: String!, password: String!) : Auth
-        
-        getAllUserBooking(username: String, secret: String!) : [Booking]
-        getAllAdminListings(secret: String!) : [Listing]
-    
+        searchListingByName(name: String!): [Listing]
+        searchListingByCity(city: String!): [Listing]
+        searchListingByPostalCode(postal_code: String!): [Listing]
+        getAllBookingsByUser(userId: String!): [Booking]
+        getAllListingsByAdmin(userId: String!): [Listing]
     }
-
     type Mutation {
         createUser(
             username: String!
@@ -61,8 +50,10 @@ exports.typeDefs = gql `
             lastname: String!
             password: String!
             email: String!
-            type: String!
-        ) : User
+            type: String!): User
+        
+        login(username: String!
+            password: String!): ID    
 
         createListing(
             listing_id: String!
@@ -73,18 +64,14 @@ exports.typeDefs = gql `
             postal_code: String!
             price: Float!
             email: String!
-            username: String!
-            secret: String!
-        ) : Listing
+            username: String!): Listing
 
         createBooking(
             listing_id: String!
             booking_id: String!
+            booking_date: Date!
             booking_start: Date!
             booking_end: Date!
-            username: String!
-            secret: String!
-        ) : Booking
-
+            username: String!): Booking
     }
 `

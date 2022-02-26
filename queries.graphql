@@ -1,0 +1,173 @@
+mutation {
+  createUser(
+    username: "melody1402",
+    firstname: "melody",
+    lastname: "nguyen",
+    password: "qazzaq1402",
+    email: "mel960214@gmail.com",
+    type: "admin"
+  ){
+    id
+    username
+    firstname
+    lastname
+    password
+    email
+    type
+  }
+}
+
+mutation {
+  createUser(
+    username: "user1",
+    firstname: "mel",
+    lastname: "ng",
+    password: "qazzaq123456",
+    email: "mel123456@gmail.com",
+    type: "customer"
+  ){
+    id
+    username
+    firstname
+    lastname
+    password
+    email
+    type
+  }
+}
+
+mutation {
+  login(
+    username: "melody1402",
+    password: "qazzaq1402"
+  )
+}
+
+mutation {
+    createListing(
+        listing_id: "L001",
+        listing_title: "Sea face home for rent",
+        description: "max 1000-character description",
+        street: "171 Young Street",
+        city: "Toronto",
+        postal_code: "M1X0Y5",
+        price: 1000.00
+        email: "contact@hilton.com",
+        username: "melody1402",
+    ) {
+        id
+    }
+}
+
+mutation {
+    createListing(
+        listing_id: "L002",
+        listing_title: "studio 1 bath",
+        description: "for female",
+        street: "172 Young Street",
+        city: "Canada",
+        postal_code: "M4X0Y5",
+        price: 3333.00
+        email: "contact1@hilton.com",
+        username: "melody1402",
+    ) {
+        id
+    }
+}
+
+mutation {
+    createBooking(
+        listing_id: "L001",
+        booking_id: "B001",
+        booking_date: "01-29-2022",
+        booking_start: "01-30-2022",
+        booking_end: "03-21-2022",
+        username: "user1"
+    ){
+      id
+    }
+}
+mutation {
+    createBooking(
+        listing_id: "L002",
+        booking_id: "B002",
+        booking_date: "03-03-2022",
+        booking_start: "03-30-2022",
+        booking_end: "04-21-2022",
+        username: "user1"
+    ){
+      id
+    }
+}
+
+query {
+    getAllBookingsByUser(userId: "621a28af563a5b60d60d1738") {
+        id
+        listing_id
+        booking_id
+        booking_date
+        booking_start
+        booking_end
+        username
+    } 
+}
+
+query {
+  getAllListingsByAdmin(userId: "621a19c0563a5b60d60d1735") {
+    id
+    listing_id
+    listing_title
+    description
+    street
+    city
+    postal_code
+    price
+    email
+    username
+  }
+}
+
+query {
+  searchListingByName(name: "studio 1 bath") {
+    id
+    listing_id
+    listing_title
+    description
+    street
+    city
+    postal_code
+    price
+    email
+    username
+  }
+}
+
+query{
+  searchListingByCity(city: "Toronto") {
+    id
+    listing_id
+    listing_title
+    description
+    street
+    city
+    postal_code
+    price
+    email
+    username
+  }
+}
+query {
+  searchListingByPostalCode(postal_code: "M1X0Y5") {
+    id
+    listing_id
+    listing_title
+    description
+    street
+    city
+    postal_code
+    price
+    email
+    username
+  }
+}
+
